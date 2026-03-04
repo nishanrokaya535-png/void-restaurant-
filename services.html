@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu — Void Restaurant Kathmandu</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── MENU PAGE SPECIFIC ── */
+    .menu-filter {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+    }
+    .filter-btn {
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      border: 1px solid var(--glass-border);
+      background: transparent;
+      color: rgba(253,246,236,0.5);
+      cursor: none;
+      transition: all 0.3s;
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(212,168,67,0.06);
+    }
+
+    .menu-category {
+      margin-bottom: 80px;
+    }
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .category-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 300;
+      color: var(--cream);
+      white-space: nowrap;
+    }
+    .category-title em { color: var(--gold); font-style: italic; }
+    .category-line {
+      flex: 1;
+      height: 1px;
+      background: var(--glass-border);
+    }
+    .category-count {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: rgba(253,246,236,0.3);
+    }
+
+    /* List-style menu items */
+    .menu-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 0;
+    }
+    .menu-list-item {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      transition: background 0.3s;
+      cursor: none;
+      position: relative;
+    }
+    .menu-list-item::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -1px;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.5s var(--ease-out-expo);
+    }
+    .menu-list-item:hover::after { width: 100%; }
+
+    .menu-list-info { flex: 1; }
+    .menu-list-name {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: var(--cream);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .menu-badge-small {
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: var(--red);
+      color: var(--white);
+      padding: 2px 7px;
+    }
+    .menu-list-desc {
+      font-size: 0.75rem;
+      line-height: 1.7;
+      color: rgba(253,246,236,0.5);
+      max-width: 360px;
+    }
+    .menu-list-price {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 300;
+      color: var(--gold);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Dietary icons */
+    .dietary {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .dietary span {
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid;
+      padding: 2px 7px;
+    }
+    .dietary .veg   { border-color: #4caf50; color: #4caf50; }
+    .dietary .spicy { border-color: var(--red); color: var(--red); }
+    .dietary .gf    { border-color: var(--gold); color: var(--gold); }
+    .dietary .new   { border-color: #9c27b0; color: #9c27b0; }
+
+    .gallery-section { padding: 80px 5%; }
+  </style>
+</head>
+<body>
+
+  <div id="page-loader">
+    <div class="loader-logo">VOID</div>
+    <div class="loader-kanji">メニュー</div>
+    <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  </div>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">VOID <span>Restaurant · Kathmandu</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">Our Story</a></li>
+      <li><a href="services.html" class="active">Menu</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contact.html#reserve" class="nav-reserve btn-primary">Reserve a Table</a>
+    <div class="nav-hamburger"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-bg" style="background-image:url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1400&q=80');"></div>
+    <div class="page-header-overlay"></div>
+    <div class="page-header-content">
+      <p class="page-breadcrumb">Home → Menu</p>
+      <h1 class="page-header-title">A Journey<br/><em style="color:var(--gold);font-style:italic;">Across Asia</em></h1>
+    </div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <span class="marquee-item">Japanese</span><span class="marquee-item">Thai</span>
+      <span class="marquee-item">Chinese</span><span class="marquee-item">Family-Friendly</span>
+      <span class="marquee-item">Vegetarian Options</span><span class="marquee-item">Gluten-Free Available</span>
+      <span class="marquee-item">Japanese</span><span class="marquee-item">Thai</span>
+      <span class="marquee-item">Chinese</span><span class="marquee-item">Family-Friendly</span>
+      <span class="marquee-item">Vegetarian Options</span><span class="marquee-item">Gluten-Free Available</span>
+    </div>
+  </div>
+
+  <section style="padding:80px 5%;">
+    <!-- Filter buttons -->
+    <div class="reveal">
+      <span class="section-eyebrow">Our Menu</span>
+      <h2 class="section-title">Every Dish, a <em>Story</em></h2>
+      <div class="section-line"></div>
+      <p style="font-size:0.82rem;line-height:1.9;color:rgba(253,246,236,0.55);max-width:560px;margin-bottom:48px;">
+        Our menu is a curated anthology of Asia. From the precise geometry of Japanese cuisine to the thunderous spice of Thai street food — each dish is cooked with the soul of its homeland.
+      </p>
+    </div>
+
+    <div class="menu-filter reveal delay-1">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">Japanese</button>
+      <button class="filter-btn">Thai</button>
+      <button class="filter-btn">Chinese</button>
+      <button class="filter-btn">Starters</button>
+      <button class="filter-btn">Mains</button>
+      <button class="filter-btn">Desserts</button>
+      <button class="filter-btn">Beverages</button>
+    </div>
+
+    <!-- SIGNATURE DISHES - CARDS -->
+    <div class="menu-category">
+      <div class="category-header reveal">
+        <h3 class="category-title">Signature <em>Dishes</em></h3>
+        <div class="category-line"></div>
+        <span class="category-count">6 dishes</span>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card reveal delay-1">
+          <div class="menu-card-img">
+            <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=600&q=80" alt="Mandarin Chicken Rice" loading="lazy"/>
+            <span class="menu-card-badge">Chef's Pick</span>
+          </div>
+          <div class="menu-card-body">
+            <div class="ingredient-tags"><span class="tag">GF</span><span class="tag">Japanese</span></div>
+            <h3 class="menu-card-name">Mandarin Chicken Rice</h3>
+            <p class="menu-card-desc">Silky, poached chicken lacquered in a glistening mandarin citrus glaze — bright, perfumed, achingly tender — laid over jade-green jasmine rice that drinks up every drop of that amber sauce.</p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">Rs. 650</span>
+              <button class="menu-card-order">Order Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card reveal delay-2">
+          <div class="menu-card-img">
+            <img src="https://images.unsplash.com/photo-1555126634-323283e090fa?w=600&q=80" alt="Black Truffle Roast Duck" loading="lazy"/>
+            <span class="menu-card-badge">Signature</span>
+          </div>
+          <div class="menu-card-body">
+            <div class="ingredient-tags"><span class="tag">Chinese</span><span class="tag">Premium</span></div>
+            <h3 class="menu-card-name">Black Truffle Roast Duck</h3>
+            <p class="menu-card-desc">Mahogany skin so crispy it shatters like lacquer — revealing meat perfumed with black truffle shaved tableside. Rich, smoky, outrageously tender. The dish people return to Kathmandu for.</p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">Rs. 1,450</span>
+              <button class="menu-card-order">Order Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card reveal delay-3">
+          <div class="menu-card-img">
+            <img src="https://images.unsplash.com/photo-1559410545-0bdcd187e0a6?w=600&q=80" alt="Wasabi Prawns" loading="lazy"/>
+          </div>
+          <div class="menu-card-body">
+            <div class="ingredient-tags"><span class="tag">Japanese</span><span class="tag">Spicy</span></div>
+            <h3 class="menu-card-name">Wasabi Prawns</h3>
+            <p class="menu-card-desc">Plump, wok-blistered tiger prawns coated in creamy wasabi mayo that starts cool and blooms into a slow, pleasurable heat. You'll eat these dangerously fast — then immediately order more.</p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">Rs. 980</span>
+              <button class="menu-card-order">Order Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card reveal delay-4">
+          <div class="menu-card-img">
+            <img src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=600&q=80" alt="Unagi Benedict" loading="lazy"/>
+            <span class="menu-card-badge">New</span>
+          </div>
+          <div class="menu-card-body">
+            <div class="ingredient-tags"><span class="tag">Japanese</span><span class="tag">Brunch</span></div>
+            <h3 class="menu-card-name">Unagi Benedict</h3>
+            <p class="menu-card-desc">Sweet glazed eel over a cloud-soft brioche, crowned with a trembling poached egg that bleeds golden yolk into a yuzu hollandaise. This is breakfast, elevated to high art.</p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">Rs. 1,100</span>
+              <button class="menu-card-order">Order Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card reveal delay-5">
+          <div class="menu-card-img">
+            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" alt="Wagyu Beef Noodle Soup" loading="lazy"/>
+          </div>
+          <div class="menu-card-body">
+            <div class="ingredient-tags"><span class="tag">Chinese</span><span class="tag">Slow-Cooked</span></div>
+            <h3 class="menu-card-name">Wagyu Beef Noodle Soup</h3>
+            <p class="menu-card-desc">A 12-hour bone broth, trembling with golden fat, shelters silken noodles and wagyu beef that dissolves on the tongue. Each sip is a bowl of winter warmth you'll crave for weeks after.</p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">Rs. 1,200</span>
+              <button class="menu-card-order">Order Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card reveal delay-6">
+          <div class="menu-card-img">
+            <img src="https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=600&q=80" alt="Slow Cooked Pork Belly" loading="lazy"/>
+          </div>
+          <div class="menu-card-body">
+            <div class="ingredient-tags"><span class="tag">Thai</span><span class="tag">Slow-Cooked</span></div>
+            <h3 class="menu-card-name">Moo Hong Pork Belly</h3>
+            <p class="menu-card-desc">Phuketian slow-braised pork belly simmered for six hours in five-spice, palm sugar, and dark soy — jiggly, caramelised, impossibly rich. A dish that smells so good it empties the street outside.</p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">Rs. 890</span>
+              <button class="menu-card-order">Order Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STARTERS LIST -->
+    <div class="menu-category">
+      <div class="category-header reveal">
+        <h3 class="category-title"><em>Starters</em> & Small Plates</h3>
+        <div class="category-line"></div>
+        <span class="category-count">8 dishes</span>
+      </div>
+      <div class="menu-list">
+        <div class="menu-list-item reveal delay-1">
+          <div class="menu-list-info">
+            <h4 class="menu-list-name">Khao Khaab Hor Goong <span class="menu-badge-small">Thai</span></h4>
+            <p class="menu-list-desc">Chilled prawn salad tossed with toasted rice powder, shallots, lime, and fish sauce. Bright, electric, addictive.</p>
+            <div class="dietary"><span class="gf">GF</span><span class="spicy">Spicy</span></div>
+          </div>
+          <span class="menu-list-price">Rs. 520</span>
+        </div>
+        <div class="menu-list-item reveal delay-2">
+          <div class="menu-list-info">
+            <h4 class="menu-list-name">Grilled Octopus Salad <span class="menu-badge-small">Thai</span></h4>
+            <p class="menu-list-desc">Charred octopus over a papaya-mango slaw with roasted coconut and spicy tamarind dressing.</p>
+            <div class="dietary"><span class="gf">GF</span></div>
+          </div>
+          <span class="menu-list-price">Rs. 680</span>
+        </div>
+        <div class="menu-list-item reveal delay-3">
+          <div class="menu-list-info">
+            <h4 class="menu-list-name">Daulat Ki Chaat</h4>
+            <p class="menu-list-desc">Airy, cloud-like milk foam sweet topped with saffron, rose, crushed nuts. Dessert and starter in one ethereal bite.</p>
+            <div class="dietary"><span class="veg">Veg</span><span class="new">New</span></div>
+          </div>
+          <span class="menu-list-price">Rs. 380</span>
+        </div>
+        <div class="menu-list-item reveal delay-4">
+          <div class="menu-list-info">
+            <h4 class="menu-list-name">Gyoza Platter <span class="menu-badge-small">Japanese</span></h4>
+            <p class="menu-list-desc">Pan-fried pork and cabbage dumplings, shatteringly crisp underneath, steamed on top. Served with ponzu dipping sauce.</p>
+            <div class="dietary"><span class="new">New</span></div>
+          </div>
+          <span class="menu-list-price">Rs. 450</span>
+        </div>
+        <div class="menu-list-item reveal delay-1">
+          <div class="menu-list-info">
+            <h4 class="menu-list-name">Tom Kha Mushroom Soup <span class="menu-badge-small">Thai</span></h4>
+            <p class="menu-list-desc">Fragrant coconut milk broth with oyster mushrooms, galangal, lemongrass, kaffir lime. Pure tropical warmth.</p>
+            <div class="dietary"><span class="veg">Veg</span><span class="gf">GF</span></div>
+          </div>
+          <span class="menu-list-price">Rs. 390</span>
+        </div>
+        <div class="menu-list-item reveal delay-2">
+          <div class="menu-list-info">
+            <h4 class="menu-list-name">Spring Rolls (4pcs) <span class="menu-badge-small">Chinese</span></h4>
+            <p class="menu-list-desc">Golden, shatteringly crisp rolls filled with glass noodles, cabbage, and shiitake. Served with plum sauce.</p>
+            <div class="dietary"><span class="veg">Veg</span></div>
+          </div>
+          <span class="menu-list-price">Rs. 280</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAINS LIST -->
+    <div class="menu-category">
+      <div class="category-header reveal">
+        <h3 class="category-title">Main <em>Courses</em></h3>
+        <div class="category-line"></div>
+        <span class="category-count">10 dishes</span>
+      </div>
+      <div class="menu-list">
+        <div class="menu-list-item reveal delay-1">
+          <div class="menu-list-info">
+            <h4 class="menu-list-name">Fish Head Curry <span class="menu-badge-small">Chinese</span></h4>
+            <p class="menu-list-desc">A legendary curry — a whole fish head braised in a tomato-tamarind-coconut gravy. Gelatinous, rich, deeply spiced. You'll fight your family for the cheek meat.</p>
+            <div class="dietary"><span class="gf">GF</span><span class="spicy">Spicy</span></div>
+          </div>
+          <span class="menu-list-price">Rs. 1,100</span>
+        </div>
+        <div class="menu-list-item reveal delay-2">
+          <div class="menu-list-info">
+            <h4 class="menu-list-name">Pad Thai Goong <span class="menu-badge-small">Thai</span></h4>
+            <p class="menu-list-desc">The real thing — wok-charred rice noodles, plump shrimp, egg, bean sprouts, tamarind, roasted peanuts. Smoky, tangy, deeply satisfying.</p>
+            <div class="dietary"><span class="gf">GF</span></div>
+          </div>
+          <span class="menu-list-price">Rs. 720</span>
+        </div>
+        <div class="menu-list-item reveal delay-3">
+          <div class="menu-list-info">
+            <h4 class="menu-list-name">Gaeng Runjaun Wagyu <span class="menu-badge-small">Thai</span></h4>
+            <p class="menu-list-desc">Tender wagyu shreds floating in a bold, aromatic red curry — coconut milk, makrut lime, Thai basil. Serve with sticky rice.</p>
+            <div class="dietary"><span class="gf">GF</span><span class="spicy">Spicy</span></div>
+          </div>
+          <span class="menu-list-price">Rs. 1,350</span>
+        </div>
+        <div class="menu-list-item reveal delay-4">
+          <div class="menu-list-info">
+            <h4 class="menu-list-name">Chicken Biryani <span class="menu-badge-small">Fusion</span></h4>
+            <p class="menu-list-desc">Saffron-stained rice layered with cardamom-marinated chicken, fried onions, mint. Slow-cooked dum style — every grain perfumed.</p>
+            <div class="dietary"><span class="gf">GF</span></div>
+          </div>
+          <span class="menu-list-price">Rs. 750</span>
+        </div>
+        <div class="menu-list-item reveal delay-5">
+          <div class="menu-list-info">
+            <h4 class="menu-list-name">Tofu & Eggplant Stir Fry <span class="menu-badge-small">Chinese</span></h4>
+            <p class="menu-list-desc">Silken tofu and smoky wok-blistered eggplant in a Sichuan doubanjiang sauce. Spicy, numbing, impossibly umami.</p>
+            <div class="dietary"><span class="veg">Veg</span><span class="spicy">Spicy</span></div>
+          </div>
+          <span class="menu-list-price">Rs. 590</span>
+        </div>
+        <div class="menu-list-item reveal delay-6">
+          <div class="menu-list-info">
+            <h4 class="menu-list-name">Grilled Salmon Teriyaki <span class="menu-badge-small">Japanese</span></h4>
+            <p class="menu-list-desc">Norwegian salmon glazed with house-made teriyaki, grilled over binchotan charcoal. Served with pickled daikon and steamed rice.</p>
+            <div class="dietary"><span class="gf">GF</span></div>
+          </div>
+          <span class="menu-list-price">Rs. 1,050</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESSERTS -->
+    <div class="menu-category">
+      <div class="category-header reveal">
+        <h3 class="category-title">Sweet <em>Endings</em></h3>
+        <div class="category-line"></div>
+        <span class="category-count">5 desserts</span>
+      </div>
+      <div class="menu-list">
+        <div class="menu-list-item reveal delay-1">
+          <div class="menu-list-info">
+            <h4 class="menu-list-name">Matcha Panna Cotta</h4>
+            <p class="menu-list-desc">Silken, trembling cream infused with ceremonial grade matcha. Served with a pool of warm black sesame caramel and candied ginger.</p>
+            <div class="dietary"><span class="veg">Veg</span><span class="gf">GF</span></div>
+          </div>
+          <span class="menu-list-price">Rs. 380</span>
+        </div>
+        <div class="menu-list-item reveal delay-2">
+          <div class="menu-list-info">
+            <h4 class="menu-list-name">Mango Sticky Rice</h4>
+            <p class="menu-list-desc">Thailand's greatest export — fragrant glutinous rice, ripe Alphonso mango slices, a warm coconut cream drizzle. Simple, perfect, divine.</p>
+            <div class="dietary"><span class="veg">Veg</span><span class="gf">GF</span><span class="new">New</span></div>
+          </div>
+          <span class="menu-list-price">Rs. 320</span>
+        </div>
+        <div class="menu-list-item reveal delay-3">
+          <div class="menu-list-info">
+            <h4 class="menu-list-name">Black Sesame Lava Cake</h4>
+            <p class="menu-list-desc">A dark, brooding cake with a warm black sesame molten core that flows like midnight. Served with toasted rice ice cream.</p>
+            <div class="dietary"><span class="veg">Veg</span></div>
+          </div>
+          <span class="menu-list-price">Rs. 420</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY SNEAK -->
+  <section class="gallery-section">
+    <div style="text-align:center;max-width:480px;margin:0 auto 50px;" class="reveal">
+      <span class="section-eyebrow">Visual Feast</span>
+      <h2 class="section-title">Eat First <em>With Your Eyes</em></h2>
+      <div class="section-line" style="margin:28px auto;"></div>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal delay-1">
+        <img src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=800&q=80" alt="Asian cuisine" loading="lazy"/>
+        <div class="gallery-overlay"><span class="gallery-caption">Wok Mastery</span></div>
+      </div>
+      <div class="gallery-item reveal delay-2">
+        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=500&q=80" alt="Noodle soup" loading="lazy"/>
+        <div class="gallery-overlay"><span class="gallery-caption">Bowl of Comfort</span></div>
+      </div>
+      <div class="gallery-item reveal delay-3">
+        <img src="https://images.unsplash.com/photo-1559410545-0bdcd187e0a6?w=500&q=80" alt="Prawns" loading="lazy"/>
+        <div class="gallery-overlay"><span class="gallery-caption">Ocean Fresh</span></div>
+      </div>
+      <div class="gallery-item reveal delay-4">
+        <img src="https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=500&q=80" alt="Pork Belly" loading="lazy"/>
+        <div class="gallery-overlay"><span class="gallery-caption">Slow Cooked</span></div>
+      </div>
+      <div class="gallery-item reveal delay-5">
+        <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=600&q=80" alt="Chicken Rice" loading="lazy"/>
+        <div class="gallery-overlay"><span class="gallery-caption">Golden Glaze</span></div>
+      </div>
+      <div class="gallery-item reveal delay-6">
+        <img src="https://images.unsplash.com/photo-1555126634-323283e090fa?w=500&q=80" alt="Duck" loading="lazy"/>
+        <div class="gallery-overlay"><span class="gallery-caption">Truffle Dreams</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-logo">VOID</div>
+        <p class="footer-tagline">Unlock the Richness of Asian Traditions.<br/>Where every dish carries the soul of a continent.</p>
+        <div class="footer-social">
+          <a href="#" class="social-icon">IG</a>
+          <a href="#" class="social-icon">FB</a>
+          <a href="#" class="social-icon">TK</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">Our Story</a></li>
+          <li><a href="services.html">Menu</a></li>
+          <li><a href="contact.html">Reservations</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hours</h4>
+        <ul>
+          <li><a href="#">Mon – Sun: 10am – 12pm</a></li>
+          <li><a href="#">Kitchen closes 11:30pm</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:9848303515">+977 984 830 3515</a></li>
+          <li><a href="#">Boudha-4, Kathmandu</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Void Restaurant. All rights reserved.</span>
+      <span>Crafted with ♥ in Kathmandu</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Filter functionality
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

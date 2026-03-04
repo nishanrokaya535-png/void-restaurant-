@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Story — Void Restaurant Kathmandu</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── ABOUT-SPECIFIC ── */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1px;
+      background: var(--glass-border);
+      border: 1px solid var(--glass-border);
+      margin-top: 60px;
+    }
+    .value-item {
+      background: var(--ink);
+      padding: 48px 36px;
+      transition: background 0.4s;
+    }
+    .value-item:hover { background: rgba(212,168,67,0.05); }
+    .value-num {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: rgba(212,168,67,0.2);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .value-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+    .value-desc {
+      font-size: 0.78rem;
+      line-height: 1.8;
+      color: rgba(253,246,236,0.5);
+    }
+
+    .chef-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      padding: 80px 5%;
+      border-top: 1px solid var(--glass-border);
+    }
+    .chef-card:nth-child(even) { direction: rtl; }
+    .chef-card:nth-child(even) > * { direction: ltr; }
+    .chef-img { position: relative; }
+    .chef-img img { height: 480px; object-fit: cover; }
+    .chef-img-frame {
+      position: absolute;
+      top: 20px; left: 20px;
+      right: -20px; bottom: -20px;
+      border: 1px solid var(--gold-light);
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .chef-title-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .chef-name {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+    .chef-bio {
+      font-size: 0.85rem;
+      line-height: 1.9;
+      color: rgba(253,246,236,0.6);
+      margin-top: 20px;
+    }
+    .chef-expertise {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .expertise-tag {
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid var(--glass-border);
+      color: rgba(253,246,236,0.6);
+      padding: 5px 12px;
+    }
+
+    .journey-timeline {
+      position: relative;
+      padding-left: 40px;
+      margin-top: 60px;
+    }
+    .journey-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 8px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 48px;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+    }
+    .timeline-item.visible { opacity: 1; transform: translateX(0); }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -44px; top: 8px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .timeline-year {
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .timeline-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+    .timeline-text {
+      font-size: 0.8rem;
+      line-height: 1.8;
+      color: rgba(253,246,236,0.55);
+    }
+
+    @media (max-width: 768px) {
+      .chef-card { grid-template-columns: 1fr; gap: 36px; }
+      .chef-card:nth-child(even) { direction: ltr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="page-loader">
+    <div class="loader-logo">VOID</div>
+    <div class="loader-kanji">私たちの物語</div>
+    <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  </div>
+
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">VOID <span>Restaurant · Kathmandu</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">Our Story</a></li>
+      <li><a href="services.html">Menu</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contact.html#reserve" class="nav-reserve btn-primary">Reserve a Table</a>
+    <div class="nav-hamburger"><span></span><span></span><span></span></div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-bg" style="background-image:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1400&q=80');"></div>
+    <div class="page-header-overlay"></div>
+    <div class="page-header-content">
+      <p class="page-breadcrumb">Home → Our Story</p>
+      <h1 class="page-header-title">The <em style="font-style:italic;color:var(--gold);">Soul</em><br/>Behind Void</h1>
+    </div>
+  </div>
+
+  <!-- ORIGIN STORY -->
+  <section style="padding:100px 5%;">
+    <div class="story-grid">
+      <div class="story-img-wrap reveal-left">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=80" alt="Void Restaurant interior" />
+        <div class="story-img-accent"></div>
+      </div>
+      <div class="story-body reveal-right">
+        <span class="section-eyebrow">Our Beginning</span>
+        <h2 class="section-title">Born from a<br/><em>Thousand Journeys</em></h2>
+        <div class="section-line"></div>
+        <p>Void was born in 2021 from a single obsession: what if Kathmandu could taste the full breadth of Asia — not a watered-down, tourist-friendly approximation, but the real, raw, soulful food of Japan's izakayas, Thailand's night markets, and China's ancestral kitchens?</p>
+        <p>Our founder spent four years eating her way through Asia — slurping ramen at 3am in Osaka, sweating over a clay pot in Chiang Mai, arguing with a Cantonese uncle about the correct roasting time for duck. Every meal became a lesson. Every lesson became Void.</p>
+        <p>Nestled in the spiritual heart of Boudha, we believe the act of eating together is sacred — as sacred as the chanting just outside our doors. We cook with that reverence in every pot.</p>
+        <div class="story-stats">
+          <div>
+            <span class="stat-num" data-count="4" data-suffix="+">0+</span>
+            <span class="stat-label">Years of Mastery</span>
+          </div>
+          <div>
+            <span class="stat-num" data-count="60" data-suffix="+">0+</span>
+            <span class="stat-label">Menu Items</span>
+          </div>
+          <div>
+            <span class="stat-num" data-count="12000" data-suffix="+">0+</span>
+            <span class="stat-label">Happy Diners</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR VALUES -->
+  <section style="padding:80px 5%;">
+    <div style="max-width:500px;" class="reveal">
+      <span class="section-eyebrow">What We Stand For</span>
+      <h2 class="section-title">The <em>Principles</em> of Void</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="values-grid">
+      <div class="value-item reveal delay-1">
+        <div class="value-num">01</div>
+        <h3 class="value-title">Authenticity Above All</h3>
+        <p class="value-desc">We refuse shortcuts. Traditional methods, ancestral spice blends, and imported ingredients ensure every dish is the real thing — not a replica.</p>
+      </div>
+      <div class="value-item reveal delay-2">
+        <div class="value-num">02</div>
+        <h3 class="value-title">Seasonal & Fresh</h3>
+        <p class="value-desc">Our menu shifts with what the season offers. Kalimati market at dawn, farm deliveries, and zero frozen stock — freshness is non-negotiable.</p>
+      </div>
+      <div class="value-item reveal delay-3">
+        <div class="value-num">03</div>
+        <h3 class="value-title">Generous Hospitality</h3>
+        <p class="value-desc">In Asian culture, feeding someone is an act of love. We carry that spirit into every interaction — from the first bow to the last chopstick rest.</p>
+      </div>
+      <div class="value-item reveal delay-4">
+        <div class="value-num">04</div>
+        <h3 class="value-title">Community Roots</h3>
+        <p class="value-desc">Boudha shaped us. We source locally, hire locally, and give back to the neighbourhood that embraced us from day one.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHEF PROFILES -->
+  <section style="padding:80px 0;">
+    <div style="text-align:center;max-width:480px;margin:0 auto 20px;padding:0 5%;" class="reveal">
+      <span class="section-eyebrow">The Artisans</span>
+      <h2 class="section-title">Meet Our <em>Chefs</em></h2>
+      <div class="section-line" style="margin:28px auto;"></div>
+    </div>
+
+    <div class="chef-card">
+      <div class="chef-img reveal-left">
+        <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=600&q=80" alt="Head Chef" />
+        <div class="chef-img-frame"></div>
+      </div>
+      <div class="reveal-right">
+        <p class="chef-title-label">Executive Chef</p>
+        <h3 class="chef-name">Chef Aiko Tanaka</h3>
+        <div class="section-line"></div>
+        <p class="chef-bio">Trained at Culinary Institute of Japan in Osaka and later under legendary Chef Nobu Matsuhisa in Bangkok, Aiko brings a philosophy of mu — nothingness, precision, perfect negative space — to every dish she creates at Void. Her duck is spoken of in whispers across Kathmandu.</p>
+        <div class="chef-expertise">
+          <span class="expertise-tag">Japanese</span>
+          <span class="expertise-tag">Kaiseki</span>
+          <span class="expertise-tag">Fermentation</span>
+          <span class="expertise-tag">Umami Craft</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chef-card">
+      <div class="chef-img reveal-right">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Sous Chef" />
+        <div class="chef-img-frame"></div>
+      </div>
+      <div class="reveal-left">
+        <p class="chef-title-label">Sous Chef</p>
+        <h3 class="chef-name">Chef Somchai Phuket</h3>
+        <div class="section-line"></div>
+        <p class="chef-bio">Born into a family of Thai street vendors in Chiang Mai, Somchai learned to build flavour from nothing — a handful of herbs, a charcoal grill, and time. He brings that energy, heat, and explosive spice to the Thai and Chinese sections of our menu.</p>
+        <div class="chef-expertise">
+          <span class="expertise-tag">Thai</span>
+          <span class="expertise-tag">Chinese</span>
+          <span class="expertise-tag">Open Flame</span>
+          <span class="expertise-tag">Spice Curation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section style="padding:80px 5%;background:rgba(192,57,43,0.04);">
+    <div class="story-grid">
+      <div class="reveal-left">
+        <span class="section-eyebrow">Our Journey</span>
+        <h2 class="section-title">The <em>Milestones</em><br/>That Made Us</h2>
+        <div class="section-line"></div>
+        <p style="font-size:0.82rem;line-height:1.9;color:rgba(253,246,236,0.6);">
+          Every restaurant has a story. Ours is written in spice stains, late-night recipe arguments, and the faces of guests who tasted something that reminded them of home.
+        </p>
+      </div>
+      <div class="journey-timeline">
+        <div class="timeline-item reveal">
+          <p class="timeline-year">2018</p>
+          <h4 class="timeline-title">The Idea is Born</h4>
+          <p class="timeline-text">Chef Aiko eats her way through 6 Asian countries. A napkin scrawl in a Kyoto izakaya becomes the blueprint for Void.</p>
+        </div>
+        <div class="timeline-item reveal delay-1">
+          <p class="timeline-year">2020</p>
+          <h4 class="timeline-title">A Home in Boudha</h4>
+          <p class="timeline-text">After months searching Kathmandu, a double-storey space in Boudha-4 is chosen — close to the stupa, close to the soul of the city.</p>
+        </div>
+        <div class="timeline-item reveal delay-2">
+          <p class="timeline-year">2021</p>
+          <h4 class="timeline-title">Opening Night</h4>
+          <p class="timeline-text">Void opens its doors. Within three weeks, every weekend table is booked a month in advance. The city is hungry for this.</p>
+        </div>
+        <div class="timeline-item reveal delay-3">
+          <p class="timeline-year">2023</p>
+          <h4 class="timeline-title">Nepal Food Awards</h4>
+          <p class="timeline-text">Awarded "Best Asian Restaurant in Kathmandu" by Nepal Culinary Society. The Black Truffle Duck named Dish of the Year.</p>
+        </div>
+        <div class="timeline-item reveal delay-4">
+          <p class="timeline-year">2025</p>
+          <h4 class="timeline-title">Family Expansion</h4>
+          <p class="timeline-text">New family-dining section opens with dedicated children's menu, weekend dim sum brunch, and private dining events.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-logo">VOID</div>
+        <p class="footer-tagline">Unlock the Richness of Asian Traditions.<br/>Where every dish carries the soul of a continent.</p>
+        <div class="footer-social">
+          <a href="#" class="social-icon">IG</a>
+          <a href="#" class="social-icon">FB</a>
+          <a href="#" class="social-icon">TK</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">Our Story</a></li>
+          <li><a href="services.html">Menu</a></li>
+          <li><a href="contact.html">Reservations</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hours</h4>
+        <ul>
+          <li><a href="#">Mon – Sun: 10am – 12pm</a></li>
+          <li><a href="#">Kitchen closes 11:30pm</a></li>
+          <li><a href="#">Brunch: Sat & Sun 10–2pm</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:9848303515">+977 984 830 3515</a></li>
+          <li><a href="#">hello@voidrestaurant.com</a></li>
+          <li><a href="contact.html">Boudha-4, Kathmandu</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Void Restaurant. All rights reserved.</span>
+      <span>Crafted with ♥ in Kathmandu</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Timeline specific observer
+    document.querySelectorAll('.timeline-item').forEach(item => {
+      new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+      }, { threshold: 0.2 }).observe(item);
+    });
+  </script>
+</body>
+</html>

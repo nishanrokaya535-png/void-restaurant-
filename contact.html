@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact & Reservations — Void Restaurant Kathmandu</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── CONTACT PAGE SPECIFIC ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-info-block {
+      margin-bottom: 48px;
+    }
+    .contact-info-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .contact-info-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--glass-border);
+    }
+    .contact-info-value {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.6;
+    }
+    .contact-info-sub {
+      font-size: 0.75rem;
+      color: rgba(253,246,236,0.45);
+      margin-top: 4px;
+      line-height: 1.7;
+    }
+
+    .hours-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 40px;
+      margin-top: 8px;
+    }
+    .hours-day {
+      font-size: 0.75rem;
+      color: rgba(253,246,236,0.55);
+    }
+    .hours-time {
+      font-size: 0.75rem;
+      color: var(--cream);
+      text-align: right;
+    }
+
+    .map-embed {
+      width: 100%;
+      height: 280px;
+      border: 1px solid var(--glass-border);
+      margin-top: 36px;
+      position: relative;
+      overflow: hidden;
+      background: rgba(26,18,8,0.8);
+    }
+    .map-embed iframe {
+      width: 100%; height: 100%;
+      border: none;
+      filter: grayscale(1) invert(1) contrast(0.8);
+      opacity: 0.7;
+    }
+    .map-overlay-label {
+      position: absolute;
+      bottom: 16px; left: 16px;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(26,18,8,0.85);
+      padding: 6px 14px;
+      backdrop-filter: blur(8px);
+    }
+
+    /* Reservation form card */
+    .reservation-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      padding: 56px 48px;
+      position: sticky;
+      top: 100px;
+    }
+    .reservation-card h2 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+    .reservation-card p {
+      font-size: 0.78rem;
+      color: rgba(253,246,236,0.5);
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    /* Contact form (for general enquiries) */
+    .enquiry-section {
+      padding: 100px 5%;
+      background: rgba(192,57,43,0.04);
+      border-top: 1px solid var(--glass-border);
+    }
+    .enquiry-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .enquiry-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 16px;
+    }
+    .enquiry-info p {
+      font-size: 0.82rem;
+      line-height: 1.9;
+      color: rgba(253,246,236,0.6);
+      margin-bottom: 28px;
+    }
+    .enquiry-contact-links a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--glass-border);
+      font-size: 0.82rem;
+      color: rgba(253,246,236,0.7);
+      transition: color 0.3s;
+    }
+    .enquiry-contact-links a:hover { color: var(--gold); }
+    .enquiry-contact-links .link-icon {
+      font-size: 1rem;
+      width: 24px;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid, .enquiry-grid { grid-template-columns: 1fr; gap: 48px; }
+      .reservation-card { padding: 36px 28px; position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="page-loader">
+    <div class="loader-logo">VOID</div>
+    <div class="loader-kanji">予約</div>
+    <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  </div>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">VOID <span>Restaurant · Kathmandu</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">Our Story</a></li>
+      <li><a href="services.html">Menu</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <a href="#reserve" class="nav-reserve btn-primary">Reserve a Table</a>
+    <div class="nav-hamburger"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-bg" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=80');"></div>
+    <div class="page-header-overlay"></div>
+    <div class="page-header-content">
+      <p class="page-breadcrumb">Home → Contact</p>
+      <h1 class="page-header-title">Come <em style="font-style:italic;color:var(--gold);">Find Us</em><br/>in Boudha</h1>
+    </div>
+  </div>
+
+  <!-- MAIN CONTACT + RESERVATION SECTION -->
+  <section id="reserve" style="padding:100px 5%;">
+    <div class="contact-grid">
+      <!-- LEFT: Contact Info -->
+      <div class="reveal-left">
+        <span class="section-eyebrow">Visit Void</span>
+        <h2 class="section-title">We're <em>Waiting</em><br/>For You</h2>
+        <div class="section-line"></div>
+
+        <div class="contact-info-block">
+          <p class="contact-info-label">Location</p>
+          <p class="contact-info-value">Boudha-4, Kathmandu<br/>Nepal</p>
+          <p class="contact-info-sub">Near Boudhanath Stupa, 5 minutes walk from the main chorten.<br/>Look for the lanterns.</p>
+        </div>
+
+        <div class="contact-info-block">
+          <p class="contact-info-label">Phone</p>
+          <p class="contact-info-value"><a href="tel:9848303515" style="color:var(--cream);">+977 984 830 3515</a></p>
+          <p class="contact-info-sub">Available 9am – 11pm, every day</p>
+        </div>
+
+        <div class="contact-info-block">
+          <p class="contact-info-label">Email</p>
+          <p class="contact-info-value"><a href="mailto:hello@voidrestaurant.com" style="color:var(--cream);">hello@voidrestaurant.com</a></p>
+          <p class="contact-info-sub">For private events, large groups & press enquiries</p>
+        </div>
+
+        <div class="contact-info-block">
+          <p class="contact-info-label">Hours</p>
+          <div class="hours-grid">
+            <span class="hours-day">Monday – Friday</span>
+            <span class="hours-time">10:00 AM – 12:00 AM</span>
+            <span class="hours-day">Saturday</span>
+            <span class="hours-time">10:00 AM – 12:00 AM</span>
+            <span class="hours-day">Sunday</span>
+            <span class="hours-time">10:00 AM – 12:00 AM</span>
+            <span class="hours-day">Kitchen Last Order</span>
+            <span class="hours-time">11:30 PM</span>
+          </div>
+        </div>
+
+        <div class="map-embed">
+          <!-- Boudhanath area map -->
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3530.8!2d85.3615!3d27.7215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1bd5b6947b89%3A0x1d1c7f2a5a3b9e82!2sBoudhanath%2C%20Kathmandu!5e0!3m2!1sen!2snp!4v1700000000000"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+          <span class="map-overlay-label">✦ Boudha-4, Kathmandu</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: Reservation Form -->
+      <div class="reveal-right">
+        <div class="reservation-card">
+          <h2>Reserve a Table</h2>
+          <p>Secure your spot at Void. We recommend booking at least 2 days ahead for weekends. Walk-ins welcome subject to availability.</p>
+
+          <form data-feedback>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="res-name">Full Name</label>
+                <input type="text" id="res-name" placeholder="Your name" required />
+              </div>
+              <div class="form-group">
+                <label for="res-phone">Phone Number</label>
+                <input type="tel" id="res-phone" placeholder="+977 ..." required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="res-date">Date</label>
+                <input type="date" id="res-date" required />
+              </div>
+              <div class="form-group">
+                <label for="res-time">Preferred Time</label>
+                <select id="res-time">
+                  <option value="">Select time</option>
+                  <option>12:00 PM – Lunch</option>
+                  <option>1:00 PM – Lunch</option>
+                  <option>2:00 PM – Afternoon</option>
+                  <option>6:00 PM – Dinner</option>
+                  <option>7:00 PM – Dinner</option>
+                  <option>8:00 PM – Dinner</option>
+                  <option>9:00 PM – Late Dinner</option>
+                  <option>10:00 PM – Late Dinner</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="res-guests">Number of Guests</label>
+                <select id="res-guests">
+                  <option>1 Guest</option>
+                  <option>2 Guests</option>
+                  <option selected>3–4 Guests</option>
+                  <option>5–6 Guests</option>
+                  <option>7–10 Guests</option>
+                  <option>10+ Guests (Private Event)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="res-occasion">Occasion</label>
+                <select id="res-occasion">
+                  <option>Regular Dining</option>
+                  <option>Birthday</option>
+                  <option>Anniversary</option>
+                  <option>Business Dinner</option>
+                  <option>Family Gathering</option>
+                  <option>Date Night</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="res-notes">Special Requests</label>
+              <textarea id="res-notes" rows="3" placeholder="Allergies, high chair needed, window table preference..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width:100%;justify-content:center;display:block;padding:18px;">
+              Confirm Reservation ✦
+            </button>
+          </form>
+
+          <p style="font-size:0.65rem;color:rgba(253,246,236,0.3);text-align:center;margin-top:18px;letter-spacing:0.1em;">
+            We'll confirm via phone within 2 hours of your request.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GENERAL ENQUIRIES -->
+  <section class="enquiry-section">
+    <div class="enquiry-grid">
+      <div class="enquiry-info reveal-left">
+        <span class="section-eyebrow">Get in Touch</span>
+        <h3>For Everything Else,<br/><em style="font-style:italic;font-family:var(--font-display);color:var(--gold);">We're Here.</em></h3>
+        <div class="section-line"></div>
+        <p>Private dining for up to 40 guests? A surprise anniversary setup? A corporate event with custom menus? Our events team lives for these moments.</p>
+        <p>Drop us a message and we'll get back to you within 4 hours during business hours.</p>
+        <div class="enquiry-contact-links">
+          <a href="tel:9848303515">
+            <span class="link-icon">📞</span>
+            +977 984 830 3515
+          </a>
+          <a href="mailto:hello@voidrestaurant.com">
+            <span class="link-icon">✉️</span>
+            hello@voidrestaurant.com
+          </a>
+          <a href="#">
+            <span class="link-icon">📍</span>
+            Boudha-4, Kathmandu, Nepal
+          </a>
+          <a href="#">
+            <span class="link-icon">📸</span>
+            @void.restaurant
+          </a>
+        </div>
+      </div>
+
+      <div class="reveal-right">
+        <form data-feedback>
+          <div class="form-group">
+            <label for="enq-name">Name</label>
+            <input type="text" id="enq-name" placeholder="Your full name" />
+          </div>
+          <div class="form-group">
+            <label for="enq-email">Email</label>
+            <input type="email" id="enq-email" placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label for="enq-subject">Subject</label>
+            <select id="enq-subject">
+              <option>Private Event Enquiry</option>
+              <option>Menu Information</option>
+              <option>Feedback</option>
+              <option>Media / Press</option>
+              <option>Partnership</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="enq-message">Message</label>
+            <textarea id="enq-message" rows="5" placeholder="Tell us everything..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%;display:block;">
+            Send Message ✦
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVATE DINING TEASER -->
+  <section style="padding:80px 5%;text-align:center;border-top:1px solid var(--glass-border);">
+    <div class="reveal">
+      <span class="section-eyebrow">Exclusive Experiences</span>
+      <h2 class="section-title">Private <em>Dining</em></h2>
+      <div class="section-line" style="margin:28px auto;"></div>
+      <p style="max-width:560px;margin:0 auto 40px;font-size:0.85rem;line-height:1.9;color:rgba(253,246,236,0.6);">
+        Our private dining room seats up to 20 guests. Custom menus crafted by Chef Aiko,
+        dedicated service, and an ambiance that turns any occasion into a memory that lasts decades.
+      </p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="tel:9848303515" class="btn-primary">Call to Enquire</a>
+        <a href="mailto:events@voidrestaurant.com" class="btn-outline">Email the Events Team</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-logo">VOID</div>
+        <p class="footer-tagline">Unlock the Richness of Asian Traditions.<br/>Where every dish carries the soul of a continent.</p>
+        <div class="footer-social">
+          <a href="#" class="social-icon">IG</a>
+          <a href="#" class="social-icon">FB</a>
+          <a href="#" class="social-icon">TK</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">Our Story</a></li>
+          <li><a href="services.html">Menu</a></li>
+          <li><a href="contact.html">Reservations</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hours</h4>
+        <ul>
+          <li><a href="#">Mon – Sun: 10am – 12am</a></li>
+          <li><a href="#">Kitchen closes 11:30pm</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:9848303515">+977 984 830 3515</a></li>
+          <li><a href="#">hello@voidrestaurant.com</a></li>
+          <li><a href="#">Boudha-4, Kathmandu</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Void Restaurant. All rights reserved.</span>
+      <span>Crafted with ♥ in Kathmandu</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

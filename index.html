@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Void Restaurant — Unlock the Richness of Asian Traditions</title>
+  <meta name="description" content="Void Restaurant, Boudha-4 Kathmandu. Authentic Asian dining — Japanese, Thai & Chinese cuisine crafted with soul." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── INDEX-SPECIFIC ── */
+    .featured-section { padding: 100px 5%; background: rgba(192,57,43,0.04); }
+    .featured-header  { max-width: 600px; margin-bottom: 60px; }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 2px;
+      margin-top: 60px;
+      border: 1px solid var(--glass-border);
+    }
+    .why-item {
+      padding: 50px 36px;
+      border-right: 1px solid var(--glass-border);
+      transition: background 0.4s;
+    }
+    .why-item:last-child { border-right: none; }
+    .why-item:hover { background: rgba(212,168,67,0.05); }
+    .why-icon { font-size: 2rem; margin-bottom: 20px; }
+    .why-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+    .why-desc {
+      font-size: 0.78rem;
+      line-height: 1.8;
+      color: rgba(253,246,236,0.5);
+    }
+
+    .preview-cta {
+      text-align: center;
+      padding: 80px 5%;
+      background: linear-gradient(135deg, rgba(192,57,43,0.12), rgba(212,168,67,0.06));
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .preview-cta h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 18px;
+    }
+    .preview-cta p {
+      font-size: 0.82rem;
+      color: rgba(253,246,236,0.55);
+      margin-bottom: 36px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.8;
+    }
+    .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+
+  <!-- Loader -->
+  <div id="page-loader">
+    <div class="loader-logo">VOID</div>
+    <div class="loader-kanji">虚空・空洞・虚無</div>
+    <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  </div>
+
+  <!-- Cursor -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">
+      VOID
+      <span>Restaurant · Kathmandu</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">Our Story</a></li>
+      <li><a href="services.html">Menu</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contact.html#reserve" class="nav-reserve btn-primary">Reserve a Table</a>
+    <div class="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="deco-blob" style="width:500px;height:500px;background:var(--red);top:-100px;right:-100px;animation-duration:12s;"></div>
+    <div class="deco-blob" style="width:400px;height:400px;background:var(--gold);bottom:-80px;left:-80px;animation-duration:9s;animation-delay:2s;"></div>
+    <div class="hero-bg" data-parallax></div>
+    <div class="hero-noise"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Boudha-4 · Kathmandu · Est. 2021</p>
+      <h1 class="hero-title">Where Asia<br/><em>Comes Alive</em></h1>
+      <p class="hero-tagline">Unlock the Richness of Asian Traditions</p>
+      <div class="hero-actions">
+        <a href="services.html" class="btn-primary">Explore the Menu</a>
+        <a href="contact.html#reserve" class="btn-outline">Reserve a Table</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Discover</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <span class="marquee-item">Mandarin Chicken Rice</span>
+      <span class="marquee-item">Black Truffle Roast Duck</span>
+      <span class="marquee-item">Wasabi Prawns</span>
+      <span class="marquee-item">Unagi Benedict</span>
+      <span class="marquee-item">Wagyu Beef Noodle Soup</span>
+      <span class="marquee-item">Chilled Prawn Salad</span>
+      <span class="marquee-item">Slow Cooked Pork Belly</span>
+      <span class="marquee-item">Fish Head Curry</span>
+      <!-- duplicate for seamless loop -->
+      <span class="marquee-item">Mandarin Chicken Rice</span>
+      <span class="marquee-item">Black Truffle Roast Duck</span>
+      <span class="marquee-item">Wasabi Prawns</span>
+      <span class="marquee-item">Unagi Benedict</span>
+      <span class="marquee-item">Wagyu Beef Noodle Soup</span>
+      <span class="marquee-item">Chilled Prawn Salad</span>
+      <span class="marquee-item">Slow Cooked Pork Belly</span>
+      <span class="marquee-item">Fish Head Curry</span>
+    </div>
+  </div>
+
+  <!-- FEATURED MENU PREVIEW -->
+  <section class="featured-section">
+    <div class="featured-header reveal">
+      <span class="section-eyebrow">From Our Kitchen</span>
+      <h2 class="section-title">Signature <em>Dishes</em></h2>
+      <div class="section-line"></div>
+      <p style="font-size:0.85rem;line-height:1.9;color:rgba(253,246,236,0.6);max-width:480px;">
+        Every plate is an expedition — ancient spice routes distilled into each fragrant,
+        hand-crafted dish that melts on your tongue and lingers in memory.
+      </p>
+    </div>
+
+    <div class="menu-grid">
+      <!-- Card 1 -->
+      <div class="menu-card reveal delay-1">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=600&q=80" alt="Mandarin Chicken Rice" loading="lazy"/>
+          <span class="menu-card-badge">Chef's Pick</span>
+        </div>
+        <div class="menu-card-body">
+          <div class="ingredient-tags">
+            <span class="tag">Gluten-Free</span>
+            <span class="tag">Japanese</span>
+          </div>
+          <h3 class="menu-card-name">Mandarin Chicken Rice</h3>
+          <p class="menu-card-desc">Silky chicken draped in a lacquered mandarin glaze — citrus-sweet, deeply aromatic — served over jasmine rice that soaks up every last drop of that addictive sauce.</p>
+          <div class="menu-card-footer">
+            <span class="menu-card-price">Rs. 650</span>
+            <button class="menu-card-order">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="menu-card reveal delay-2">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1555126634-323283e090fa?w=600&q=80" alt="Black Truffle Roast Duck" loading="lazy"/>
+          <span class="menu-card-badge">Signature</span>
+        </div>
+        <div class="menu-card-body">
+          <div class="ingredient-tags">
+            <span class="tag">Chinese</span>
+            <span class="tag">Premium</span>
+          </div>
+          <h3 class="menu-card-name">Black Truffle Roast Duck</h3>
+          <p class="menu-card-desc">Crispy mahogany skin shatters to reveal impossibly tender, smoky duck flesh perfumed with shaved black truffle — a dish that smells like luxury and tastes like a dream.</p>
+          <div class="menu-card-footer">
+            <span class="menu-card-price">Rs. 1,450</span>
+            <button class="menu-card-order">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="menu-card reveal delay-3">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1559410545-0bdcd187e0a6?w=600&q=80" alt="Wasabi Prawns" loading="lazy"/>
+        </div>
+        <div class="menu-card-body">
+          <div class="ingredient-tags">
+            <span class="tag">Japanese</span>
+            <span class="tag">Spicy</span>
+          </div>
+          <h3 class="menu-card-name">Wasabi Prawns</h3>
+          <p class="menu-card-desc">Plump, tiger prawns in a creamy wasabi mayo that hits with just the right heat — cooling then fiery, with a gentle burn that keeps you reaching back for one more.</p>
+          <div class="menu-card-footer">
+            <span class="menu-card-price">Rs. 980</span>
+            <button class="menu-card-order">Order Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:50px;" class="reveal">
+      <a href="services.html" class="btn-outline">View Full Menu →</a>
+    </div>
+  </section>
+
+  <!-- WHY VOID -->
+  <section style="padding:100px 5%;">
+    <div style="max-width:500px;margin-bottom:60px;" class="reveal">
+      <span class="section-eyebrow">The Void Experience</span>
+      <h2 class="section-title">Why <em>Guests</em><br/>Keep Coming Back</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-item reveal delay-1">
+        <div class="why-icon">🍜</div>
+        <h3 class="why-title">Authentic Recipes</h3>
+        <p class="why-desc">Recipes passed down through generations, sourced directly from Japanese grandmothers, Thai street vendors, and Chinese mountain villages.</p>
+      </div>
+      <div class="why-item reveal delay-2">
+        <div class="why-icon">🌿</div>
+        <h3 class="why-title">Fresh Ingredients</h3>
+        <p class="why-desc">Every morning our chefs hand-select produce from Kalimati market. Nothing frozen. Nothing artificial. Just raw, vibrant flavour.</p>
+      </div>
+      <div class="why-item reveal delay-3">
+        <div class="why-icon">🏮</div>
+        <h3 class="why-title">Curated Ambiance</h3>
+        <p class="why-desc">Warm lantern light, whispered music, the fragrance of lemongrass in the air — dining here is theatre for all five senses.</p>
+      </div>
+      <div class="why-item reveal delay-4">
+        <div class="why-icon">👨‍🍳</div>
+        <h3 class="why-title">Master Chefs</h3>
+        <p class="why-desc">Our chefs trained in Bangkok, Osaka, and Hong Kong bring decades of mastery to every dish that leaves our open kitchen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREVIEW CTA -->
+  <div class="preview-cta">
+    <h2 class="reveal">Ready to <em style="font-style:italic;color:var(--gold);">experience</em> it?</h2>
+    <p class="reveal delay-1">A table at Void isn't just a meal — it's a journey across Asia that never leaves Kathmandu.</p>
+    <div class="cta-actions reveal delay-2">
+      <a href="contact.html#reserve" class="btn-primary">Book a Table</a>
+      <a href="about.html" class="btn-outline">Our Story</a>
+    </div>
+  </div>
+
+  <!-- REVIEWS TEASER -->
+  <section style="padding:100px 5%;">
+    <div style="text-align:center;max-width:500px;margin:0 auto 60px;" class="reveal">
+      <span class="section-eyebrow">What Guests Say</span>
+      <h2 class="section-title">Tasted <em>Once</em>,<br/>Remembered Forever</h2>
+      <div class="section-line" style="margin-left:auto;margin-right:auto;"></div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card reveal delay-1">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The Black Truffle Duck changed my life. I cancelled my flight back to London just to come again the next evening."</p>
+        <p class="review-author">— James H., London</p>
+        <p class="review-dish">Black Truffle Roast Duck</p>
+      </div>
+      <div class="review-card reveal delay-2">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Every single dish made me close my eyes. The spices, the warmth, the textures — I felt like I was transported to Bangkok."</p>
+        <p class="review-author">— Ananya S., Delhi</p>
+        <p class="review-dish">Wasabi Prawns · Thai Curry</p>
+      </div>
+      <div class="review-card reveal delay-3">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Best restaurant in Kathmandu, period. The Mandarin Chicken Rice is something I crave at 2am back home in Tokyo."</p>
+        <p class="review-author">— Kenji M., Tokyo</p>
+        <p class="review-dish">Mandarin Chicken Rice</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-logo">VOID</div>
+        <p class="footer-tagline">Unlock the Richness of Asian Traditions.<br/>Where every dish carries the soul of a continent.</p>
+        <div class="footer-social">
+          <a href="#" class="social-icon" aria-label="Instagram">IG</a>
+          <a href="#" class="social-icon" aria-label="Facebook">FB</a>
+          <a href="#" class="social-icon" aria-label="TikTok">TK</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">Our Story</a></li>
+          <li><a href="services.html">Menu</a></li>
+          <li><a href="contact.html">Reservations</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hours</h4>
+        <ul>
+          <li><a href="#">Mon – Fri: 10am – 12pm</a></li>
+          <li><a href="#">Sat – Sun: 10am – 12pm</a></li>
+          <li><a href="#">Kitchen closes 11:30pm</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:9848303515">+977 984 830 3515</a></li>
+          <li><a href="mailto:hello@voidrestaurant.com">hello@voidrestaurant.com</a></li>
+          <li><a href="contact.html">Boudha-4, Kathmandu</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Void Restaurant. All rights reserved.</span>
+      <span>Crafted with ♥ in Kathmandu</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
