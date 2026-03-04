@@ -5,8 +5,7 @@ built with pure HTML, CSS, and JavaScript.
 No frameworks. No libraries.
 
 ## 🌐 Live Demo
-[View Live Site]([https://YOURUSERNAME.github.io/void-restaurant](https://nishanrokaya535-png.github.io/void-restaurant-))
-
+[View Live Site]  (https://nishancreates.github.io/void-restaurant-/)
 ## ✨ Features
 - Custom animated cursor
 - Smooth page loader
