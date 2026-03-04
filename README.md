@@ -39,12 +39,6 @@ Available for freelance work in Kathmandu.
 DM me on LinkedIn: (https://www.linkedin.com/in/nishan-kumar-rokaya-26a6a4398/)
 ```
 
-Just replace `YOURUSERNAME` with your actual GitHub username.
-
----
-
-**Summary of what to do right now:**
-```
 Step 1 → Check files are in ROOT not a folder
 Step 2 → Settings → Pages → main → /(root) → Save
 Step 3 → Wait 2–3 minutes
